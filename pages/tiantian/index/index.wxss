@@ -1,0 +1,173 @@
+/* 模版二：标题栏含添加 + 一行免责 + 行式列表 */
+.page-wrap {
+  min-height: 100vh;
+  box-sizing: border-box;
+  background-color: #f5f6f8;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 1. 头部：免责声明 + 标题栏 */
+.header-block {
+  background-color: #fff;
+}
+.header-block .disc-row {
+  padding: 20rpx 32rpx;
+  background-color: #fff8e6;
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+  border-bottom: 1rpx solid #e8e0c8;
+}
+.header-block .disc-icon {
+  font-size: 32rpx;
+  flex-shrink: 0;
+  margin-top: 2rpx;
+}
+.header-block .disc-text {
+  flex: 1;
+  font-size: 22rpx;
+  color: #8b6914;
+  line-height: 1.5;
+}
+.header-row {
+  height: 112rpx;
+  padding: 0 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #ebedf0;
+}
+.header-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+.header-refresh {
+  font-size: 22rpx;
+  color: #8e8e93;
+}
+
+/* 3. 空状态 */
+.empty-wrap {
+  padding: 80rpx 48rpx;
+}
+.btn-add-inline {
+  height: 72rpx;
+  padding: 0 40rpx;
+  border-radius: 36rpx;
+  background-color: #007aff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  margin-top: 48rpx;
+}
+.btn-add-inline-icon {
+  font-size: 28rpx;
+}
+.btn-add-inline-text {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* 4. 列表：行式，卡片之间无分割感，标题与列表之间一条线 */
+.list-wrap {
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  padding-bottom: calc(180rpx + env(safe-area-inset-bottom));
+}
+.fund-row {
+  height: 128rpx;
+  padding: 0 32rpx;
+  margin: 0;
+  background-color: #fff;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1rpx solid #ebedf0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: none;
+}
+.fund-row:last-child {
+  border-bottom: none;
+}
+.fund-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  flex: 1;
+  min-width: 0;
+}
+.fund-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fund-code {
+  font-size: 22rpx;
+  color: #8e8e93;
+}
+.fund-right {
+  margin-left: 24rpx;
+}
+.fund-val {
+  font-size: 36rpx;
+  font-weight: 700;
+}
+/* 涨红 跌绿 */
+.fund-val.up {
+  color: #e74c3c;
+}
+.fund-val.down {
+  color: #27ae60;
+}
+.fund-error {
+  font-size: 22rpx;
+  color: #ff3b30;
+}
+
+.loading-wrap {
+  padding: 80rpx 0;
+}
+
+/* 5. 底部添加按钮 */
+.footer-add-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  padding: 24rpx 32rpx;
+  padding-bottom: calc(24rpx + env(safe-area-inset-bottom));
+  background-color: #f5f6f8;
+}
+.footer-add-fixed .btn-add {
+  width: 100%;
+  height: 96rpx;
+  border-radius: 48rpx;
+  background-color: #007aff;
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  border: none;
+}
+.footer-add-fixed .btn-add::after {
+  border: none;
+}
+.footer-add-fixed .btn-add-icon {
+  font-size: 36rpx;
+  line-height: 1;
+}
+.footer-add-fixed .btn-add-text {
+  color: #fff;
+}

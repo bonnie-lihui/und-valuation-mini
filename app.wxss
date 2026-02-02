@@ -1,0 +1,25 @@
+@import "./styles/_init.wxss";
+@import "./styles/_vant.wxss";
+
+page {
+  background-color: #f5f5f5;
+  font-size: 28rpx;
+}
+
+.container {
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 24rpx;
+}
+
+.flex {
+  display: flex;
+}
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+.flex-between {
+  justify-content: space-between;
+  align-items: center;
+}

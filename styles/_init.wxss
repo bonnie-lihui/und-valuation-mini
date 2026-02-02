@@ -1,0 +1,33 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+
+.text-center { text-align: center; }
+.single {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.full-width { width: 100%; }
+.full-height { height: 100%; }
+
+.flex { display: flex !important; }
+.flex1 { flex: 1; }
+.flex-d { flex-direction: column; }
+.flex-center { justify-content: center; align-items: center; }
+.flex-align { align-items: center; }
+.flex-between { justify-content: space-between; align-items: center; }
+
+.p20 { padding: 20rpx; }
+.p24 { padding: 24rpx; }
+.mt20 { margin-top: 20rpx; }
+.mb20 { margin-bottom: 20rpx; }
+.ml10 { margin-left: 10rpx; }
+.mr10 { margin-right: 10rpx; }
+
+.box-sizing { box-sizing: border-box; }

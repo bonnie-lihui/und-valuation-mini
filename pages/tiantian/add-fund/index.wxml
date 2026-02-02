@@ -1,0 +1,67 @@
+<view class="page-wrap">
+  <van-toast id="van-toast" />
+
+  <view class="search-card">
+    <van-search
+      value="{{ searchValue }}"
+      placeholder="搜索代码或名称"
+      use-action-slot
+      bind:search="onSearch"
+      bind:change="onSearchChange"
+    >
+      <view class="btn-search" slot="action" bind:tap="onSearchConfirm">搜索</view>
+    </van-search>
+  </view>
+
+  <view class="search-result-wrap" wx:if="{{searchLoading}}">
+    <view class="search-loading">搜索中...</view>
+  </view>
+  <view class="search-result-wrap" wx:elif="{{searchError}}">
+    <view class="search-error">
+      <text class="search-error-text">{{searchError}}</text>
+    </view>
+  </view>
+  <view class="search-result-wrap" wx:elif="{{searchResult}}">
+    <view class="result-card">
+      <view class="fund-info">
+        <text class="fund-name">{{searchResult.name || searchResult.fundcode}}</text>
+        <text class="fund-code">{{searchResult.fundcode}}</text>
+      </view>
+      <view
+        class="btn-add-follow {{searchResultFollowed ? 'followed' : ''}}"
+        bind:tap="onAddFollow"
+        data-code="{{searchResult.fundcode}}"
+      >
+        {{searchResultFollowed ? '已关注' : '添加关注'}}
+      </view>
+    </view>
+  </view>
+
+  <view class="list-section" wx:if="{{list.length > 0}}">
+    <view class="list-title">已关注 {{list.length}} / {{maxCount}}</view>
+    <view class="list-wrap">
+      <view
+        class="fund-card"
+        wx:for="{{list}}"
+        wx:key="fundcode"
+      >
+        <view class="fund-info">
+          <text class="fund-name">{{item.name || item.fundcode}}</text>
+          <text class="fund-code">{{item.fundcode}}</text>
+        </view>
+<view class="fund-delete" bind:tap="onDelete" data-code="{{item.fundcode}}">
+        <van-icon name="delete-o" size="20px" color="#8e8e93" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-wrap" wx:elif="{{!loading}}">
+    <van-empty description="暂无关注" image="search" />
+    <text class="empty-hint">输入 6 位代码并点击「搜索」，再选择添加关注</text>
+  </view>
+
+  <view class="footer-bar">
+    <text class="footer-tip">最多可关注 {{maxCount}} 只</text>
+  </view>
+</view>

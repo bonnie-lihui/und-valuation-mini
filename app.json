@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/tiantian/index/index",
+    "pages/tiantian/add-fund/index"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "净值速查",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#f5f5f5"
+  },
+  "sitemapLocation": "sitemap.json"
+}

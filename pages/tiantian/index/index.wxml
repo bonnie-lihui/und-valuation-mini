@@ -1,0 +1,60 @@
+<!-- 模版二：标题栏含添加 + 一行免责 + 行式列表，无底部按钮 -->
+<view class="page-wrap">
+  <van-toast id="van-toast" />
+
+  <!-- 1. 头部：免责声明 + 标题栏 -->
+  <view class="header-block">
+    <view class="disc-row">
+      <van-icon name="info-o" class="disc-icon" color="#b8860b" />
+      <text class="disc-text">免责声明：仅供参考，不构成投资建议。有风险，投资需谨慎。</text>
+    </view>
+    <view class="header-row">
+      <text class="header-title">关联涨幅</text>
+      <text class="header-refresh">{{refreshCountdown}}秒后刷新列表</text>
+    </view>
+  </view>
+
+  <!-- 3. 空状态 -->
+  <view class="empty-wrap flex flex-d flex-center" wx:if="{{list.length === 0 && !loading}}">
+    <van-empty description="暂无关注" />
+    <view class="btn-add-inline" bind:tap="goAdd">
+      <van-icon name="plus" class="btn-add-inline-icon" color="#fff" />
+      <text class="btn-add-inline-text">添加</text>
+    </view>
+  </view>
+
+  <!-- 4. 列表：行式，底部分隔线，无底部按钮 -->
+  <block wx:else>
+    <view wx:if="{{loading}}" class="loading-wrap flex flex-center">
+      <van-loading size="24px">加载中...</van-loading>
+    </view>
+
+    <view class="list-wrap" wx:else>
+      <view
+        class="fund-row"
+        wx:for="{{list}}"
+        wx:key="fundcode"
+      >
+        <view class="fund-left">
+          <text class="fund-name">{{item.name || item.fundcode}}</text>
+          <text class="fund-code">{{item.fundcode}}</text>
+        </view>
+        <view class="fund-right" wx:if="{{!item.error}}">
+          <text class="fund-val {{item.gszzl >= 0 ? 'up' : 'down'}}">{{item.gszzl != null ? (item.gszzl >= 0 ? '+' : '') + item.gszzl + '%' : '-'}}</text>
+        </view>
+        <view class="fund-right" wx:else>
+          <text class="fund-error">{{item.error}}</text>
+        </view>
+      </view>
+    </view>
+
+  </block>
+
+  <!-- 底部添加按钮 -->
+  <view class="footer-add footer-add-fixed" wx:if="{{list.length > 0 && !loading}}" bind:tap="goAdd">
+    <view class="btn-add">
+      <text class="btn-add-icon">+</text>
+      <text class="btn-add-text">添加关注</text>
+    </view>
+  </view>
+</view>
