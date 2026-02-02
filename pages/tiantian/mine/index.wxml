@@ -1,0 +1,37 @@
+<view class="page-wrap">
+  <!-- 头部默认头像区 -->
+  <view class="user-block">
+    <view class="user-avatar-wrap">
+      <image wx:if="{{user.avatar}}" class="user-avatar" src="{{user.avatar}}" mode="aspectFill" />
+      <view wx:else class="user-avatar user-avatar-default">
+        <van-icon name="user-o" class="user-avatar-icon" color="#95a5a6" size="48px" />
+      </view>
+    </view>
+    <text class="user-nickname">{{user.nickname}}</text>
+    <text class="user-desc" wx:if="{{user.desc}}">{{user.desc}}</text>
+  </view>
+
+  <!-- 其他 - 关于我们、联系客服 -->
+  <view class="menu-groups">
+    <view class="menu-group" wx:for="{{menuGroups}}" wx:key="title">
+      <view class="menu-group-title">{{item.title}}</view>
+      <view class="menu-list">
+        <block wx:for="{{item.items}}" wx:for-item="sub" wx:key="label">
+          <button wx:if="{{sub.openType === 'contact'}}" class="menu-item menu-item-btn" open-type="contact">
+            <text class="menu-item-label">{{sub.label}}</text>
+            <text class="menu-item-arrow">›</text>
+          </button>
+          <view
+            wx:else
+            class="menu-item"
+            data-item="{{sub}}"
+            bind:tap="onMenuItemTap"
+          >
+            <text class="menu-item-label">{{sub.label}}</text>
+            <text class="menu-item-arrow">›</text>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>

@@ -50,11 +50,8 @@
 
   </block>
 
-  <!-- 底部添加按钮 -->
-  <view class="footer-add footer-add-fixed" wx:if="{{list.length > 0 && !loading}}" bind:tap="goAdd">
-    <view class="btn-add">
-      <text class="btn-add-icon">+</text>
-      <text class="btn-add-text">添加关注</text>
-    </view>
+  <!-- 右下角悬浮添加按钮 -->
+  <view class="fab" wx:if="{{list.length > 0 && !loading}}" bind:tap="goAdd">
+    <text class="fab-icon">+</text>
   </view>
 </view>

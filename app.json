@@ -1,13 +1,35 @@
 {
   "pages": [
     "pages/tiantian/index/index",
-    "pages/tiantian/add-fund/index"
+    "pages/tiantian/mine/index",
+    "pages/tiantian/add-fund/index",
+    "pages/tiantian/about/index"
   ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "净值速查",
     "navigationBarBackgroundColor": "#ffffff",
     "backgroundColor": "#f5f5f5"
+  },
+  "tabBar": {
+    "color": "#8e8e93",
+    "selectedColor": "#e74c3c",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/tiantian/index/index",
+        "text": "关注",
+        "iconPath": "images/tabbar/home_default.png",
+        "selectedIconPath": "images/tabbar/home_actived.png"
+      },
+      {
+        "pagePath": "pages/tiantian/mine/index",
+        "text": "我的",
+        "iconPath": "images/tabbar/mine_default.png",
+        "selectedIconPath": "images/tabbar/mine_actived.png"
+      }
+    ]
   },
   "sitemapLocation": "sitemap.json"
 }

@@ -3,7 +3,7 @@
   min-height: 100vh;
   box-sizing: border-box;
   background-color: #f5f6f8;
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: calc(32rpx + 120rpx + env(safe-area-inset-bottom));
 }
 
 /* 1. 头部：免责声明 + 标题栏 */
@@ -55,7 +55,7 @@
   height: 72rpx;
   padding: 0 40rpx;
   border-radius: 36rpx;
-  background-color: #007aff;
+  background-color: #e74c3c;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,7 +76,7 @@
   padding: 0;
   margin: 0;
   flex: 1;
-  padding-bottom: calc(180rpx + env(safe-area-inset-bottom));
+  padding-bottom: 24rpx;
 }
 .fund-row {
   height: 128rpx;
@@ -136,38 +136,24 @@
   padding: 80rpx 0;
 }
 
-/* 5. 底部添加按钮 */
-.footer-add-fixed {
+/* 5. 右下角悬浮添加按钮 FAB */
+.fab {
   position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 10;
-  padding: 24rpx 32rpx;
-  padding-bottom: calc(24rpx + env(safe-area-inset-bottom));
-  background-color: #f5f6f8;
-}
-.footer-add-fixed .btn-add {
-  width: 100%;
-  height: 96rpx;
-  border-radius: 48rpx;
-  background-color: #007aff;
+  right: 32rpx;
+  bottom: calc(120rpx + env(safe-area-inset-bottom));
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 56rpx;
+  background-color: #e74c3c;
   color: #fff;
-  font-size: 30rpx;
-  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16rpx;
-  border: none;
+  box-shadow: 0 8rpx 24rpx rgba(231, 76, 60, 0.4);
+  z-index: 10;
 }
-.footer-add-fixed .btn-add::after {
-  border: none;
-}
-.footer-add-fixed .btn-add-icon {
-  font-size: 36rpx;
+.fab-icon {
+  font-size: 48rpx;
+  font-weight: 300;
   line-height: 1;
-}
-.footer-add-fixed .btn-add-text {
-  color: #fff;
 }

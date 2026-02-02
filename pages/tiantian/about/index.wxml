@@ -1,0 +1,20 @@
+<view class="page-wrap">
+  <view class="content-block">
+    <view class="section">
+      <text class="section-title">功能说明</text>
+      <text class="section-text">本小程序提供估值查询与展示，便于您查看已关注产品的估算涨跌。</text>
+    </view>
+    <view class="section">
+      <text class="section-title">数据来源</text>
+      <text class="section-text">估值数据来源于第三方公开接口，存在延迟或误差可能，仅供参考。</text>
+    </view>
+    <view class="section">
+      <text class="section-title">免责声明</text>
+      <text class="section-text">本小程序及所展示信息均不构成投资建议、销售推介或收益承诺。投资有风险，请谨慎决策；过往业绩不预示未来表现，请根据自身情况独立判断并自担风险。因使用本小程序而产生的任何投资或决策后果，与本小程序及运营方无关。</text>
+    </view>
+    <view class="section">
+      <text class="section-title">使用须知</text>
+      <text class="section-text">请合理控制查询频率；如有疑问或发现数据异常，可通过「联系客服」反馈。</text>
+    </view>
+  </view>
+</view>
