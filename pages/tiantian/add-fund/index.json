@@ -2,6 +2,8 @@
   "navigationBarTitleText": "我的关注",
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTextStyle": "black",
+  "enableShareAppMessage": true,
+  "enableShareTimeline": true,
   "usingComponents": {
     "van-search": "@vant/weapp/search/index",
     "van-empty": "@vant/weapp/empty/index",

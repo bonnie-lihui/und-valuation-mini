@@ -1,4 +1,5 @@
 // pages/tiantian/mine/index.js - 我的页：头部头像 + 其他（关于我们、联系客服）
+const { buildShareConfig, buildTimelineConfig } = require('../../../utils/share');
 Page({
   data: {
     user: {
@@ -27,6 +28,24 @@ Page({
       wx.navigateTo({ url: path });
     } else {
       wx.showToast({ title: item.label + '（待开发）', icon: 'none' });
+    }
+  },
+
+  onShareAppMessage() {
+    try {
+      return buildShareConfig();
+    } catch (e) {
+      console.error('mine onShareAppMessage error', e);
+      return buildShareConfig();
+    }
+  },
+
+  onShareTimeline() {
+    try {
+      return buildTimelineConfig();
+    } catch (e) {
+      console.error('mine onShareTimeline error', e);
+      return buildTimelineConfig();
     }
   }
 });

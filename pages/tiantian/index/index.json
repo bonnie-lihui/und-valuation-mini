@@ -3,6 +3,8 @@
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTextStyle": "black",
   "enablePullDownRefresh": true,
+  "enableShareAppMessage": true,
+  "enableShareTimeline": true,
   "backgroundTextStyle": "dark",
   "usingComponents": {
     "van-icon": "@vant/weapp/icon/index",

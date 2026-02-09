@@ -5,7 +5,7 @@
  */
 const KEY_FUND_LIST = 'fund_watch_list';
 const KEY_FUND_CACHE = 'fund_data_cache';
-const MAX_FUND_COUNT = 10;
+const MAX_FUND_COUNT = 20;
 
 function getFundList() {
   try {

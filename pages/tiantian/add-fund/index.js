@@ -1,6 +1,7 @@
 // pages/add-fund/index.js - 我的关注：搜索 → 展示结果 → 用户选择添加关注
 const { getFundList, getFundCache, addFundCode, removeFundCode, MAX_FUND_COUNT, setFundCacheEntry } = require('../../../utils/storage');
 const { getRealtimeValuation } = require('../../../utils/fundApi');
+const { buildShareConfig, buildTimelineConfig } = require('../../../utils/share');
 
 /** 将接口错误转为用户可读提示 */
 function getSearchErrorTip(err) {
@@ -242,5 +243,23 @@ Page({
         }
       }
     });
+  },
+
+  onShareAppMessage() {
+    try {
+      return buildShareConfig();
+    } catch (e) {
+      console.error('add-fund onShareAppMessage error', e);
+      return buildShareConfig();
+    }
+  },
+
+  onShareTimeline() {
+    try {
+      return buildTimelineConfig();
+    } catch (e) {
+      console.error('add-fund onShareTimeline error', e);
+      return buildTimelineConfig();
+    }
   }
 });

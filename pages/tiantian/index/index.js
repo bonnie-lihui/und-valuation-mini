@@ -1,6 +1,7 @@
 // pages/index/index.js
 const { getFundList, removeFundCode, getFundCache, setFundCacheEntry } = require('../../../utils/storage');
 const { getRealtimeValuation } = require('../../../utils/fundApi');
+const { buildShareConfig, buildTimelineConfig } = require('../../../utils/share');
 
 // 计算距离下次刷新的秒数（每逢 :00、:30 秒刷新，倒计时 1～30 秒）
 function getNextRefreshCountdown() {
@@ -197,5 +198,31 @@ Page({
     });
   },
 
-  onSwipeClose() {}
+  onSwipeClose() {},
+
+  onShareAppMessage() {
+    try {
+      const count = (this.data.list || []).length;
+      const title = count > 0
+        ? `我在关注 ${count} 只基金，快来一起看估值`
+        : '净值速查：实时估值与涨幅';
+      return buildShareConfig({ title });
+    } catch (e) {
+      console.error('index onShareAppMessage error', e);
+      return buildShareConfig();
+    }
+  },
+
+  onShareTimeline() {
+    try {
+      const count = (this.data.list || []).length;
+      const title = count > 0
+        ? `我在关注 ${count} 只基金，快来一起看估值`
+        : '净值速查：实时估值与涨幅';
+      return buildTimelineConfig({ title });
+    } catch (e) {
+      console.error('index onShareTimeline error', e);
+      return buildTimelineConfig();
+    }
+  }
 });
