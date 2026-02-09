@@ -5,6 +5,10 @@
       <text class="section-text">本小程序提供估值查询与展示，便于您查看已关注产品的估算涨跌。</text>
     </view>
     <view class="section">
+      <text class="section-title">数据存储</text>
+      <text class="section-text">您的关注列表与估值缓存仅存储在本地设备，不会随账号同步或上传至服务器。</text>
+    </view>
+    <view class="section">
       <text class="section-title">数据来源</text>
       <text class="section-text">估值数据来源于第三方公开接口，存在延迟或误差可能，仅供参考。</text>
     </view>

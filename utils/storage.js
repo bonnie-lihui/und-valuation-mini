@@ -91,6 +91,17 @@ function setFundCacheEntry(code, data) {
   }
 }
 
+/** 一键清空关注列表与估值缓存，弹窗确认后再调用 */
+function clearAllFundData() {
+  try {
+    setFundList([]);
+    wx.setStorageSync(KEY_FUND_CACHE, {});
+  } catch (e) {
+    console.error('clearAllFundData error', e);
+    throw e;
+  }
+}
+
 module.exports = {
   KEY_FUND_LIST,
   KEY_FUND_CACHE,
@@ -100,5 +111,6 @@ module.exports = {
   addFundCode,
   removeFundCode,
   getFundCache,
-  setFundCacheEntry
+  setFundCacheEntry,
+  clearAllFundData
 };

@@ -110,6 +110,7 @@
   background: none;
   border: none;
   border-radius: 0;
+  border-bottom: 1rpx solid #ebedf0;
   text-align: left;
   display: flex;
   align-items: center;
