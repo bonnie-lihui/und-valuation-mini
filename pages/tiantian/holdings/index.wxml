@@ -1,0 +1,106 @@
+<view class="page-wrap">
+  <van-toast id="van-toast" />
+
+  <view class="header-block">
+    <view class="disc-row">
+      <van-icon name="info-o" class="disc-icon" color="#b8860b" />
+      <text class="disc-text">免责声明： 仅供参考， 不构成投资建议。有风险， 投资需谨慎。</text>
+    </view>
+    <view class="summary-row">
+      <view class="summary-item summary-item-asset">
+        <view class="summary-label-row">
+          <text class="summary-label">账户资产</text>
+          <van-icon name="{{amountVisible ? 'eye-o' : 'closed-eye'}}" class="summary-eye" color="#999" bind:tap="toggleAmountVisible" />
+        </view>
+        <view class="summary-value-row">
+          <text class="summary-value" wx:if="{{amountVisible}}">¥{{accountAsset}}</text>
+          <text class="summary-value" wx:else>****</text>
+        </view>
+      </view>
+      <view class="summary-item summary-item-estimate">
+        <view class="summary-label-row">
+          <van-icon name="/images/left-right.png" class="summary-estimate-toggle summary-estimate-toggle-img" color="#999" bind:tap="toggleDailyDisplay" />
+          <text class="summary-label">预估收益</text>
+        </view>
+        <view class="summary-value-row">
+          <text wx:if="{{amountVisible}}" class="summary-value {{(showDailyRate ? totalDailyRate : totalDailyProfit) >= 0 ? 'up' : 'down'}}">{{showDailyRate ? (totalDailyRate >= 0 ? '+' : '') + totalDailyRate + '%' : (totalDailyProfit >= 0 ? '+' : '') + totalDailyProfit}}</text>
+          <text wx:else class="summary-value">****</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-wrap flex flex-d flex-center" wx:if="{{list.length === 0 && !loading}}">
+    <van-empty description="暂无持有" />
+    <view class="add-entry-link" bind:tap="goAddHolding">
+      <text class="add-entry-icon">+</text>
+      <text class="add-entry-text">新增持有</text>
+    </view>
+  </view>
+
+  <block wx:else>
+    <view wx:if="{{loading}}" class="loading-wrap flex flex-center">
+      <van-loading size="24px">加载中...</van-loading>
+    </view>
+
+    <view class="list-wrap" wx:else>
+      <view class="table-head">
+        <view class="table-head-row">
+          <text class="col-name">基金/持仓</text>
+          <view class="col-num table-head-cell-sort" bind:tap="onSortHeader" data-field="gszzl">
+            <text>模拟涨幅</text>
+            <image class="table-head-sort-img" src="/images/{{sortBy !== 'gszzl' ? 'default_sort' : (sortOrder === 'asc' ? 'up' : 'down')}}.png" mode="aspectFit" />
+          </view>
+          <view class="col-num table-head-cell-sort" bind:tap="onSortHeader" data-field="dailyProfit">
+            <text>当日收益</text>
+            <image class="table-head-sort-img" src="/images/{{sortBy !== 'dailyProfit' ? 'default_sort' : (sortOrder === 'asc' ? 'up' : 'down')}}.png" mode="aspectFit" />
+          </view>
+          <view class="col-num table-head-cell-sort" bind:tap="onSortHeader" data-field="holdingProfit">
+            <text>持有收益</text>
+            <image class="table-head-sort-img" src="/images/{{sortBy !== 'holdingProfit' ? 'default_sort' : (sortOrder === 'asc' ? 'up' : 'down')}}.png" mode="aspectFit" />
+          </view>
+        </view>
+        <view class="table-head-row table-head-date-row" wx:if="{{headerDate}}">
+          <text class="col-name"></text>
+          <text class="col-num table-head-date">{{headerDate}}</text>
+          <text class="col-num table-head-date">{{headerDate}}</text>
+          <text class="col-num table-head-date">{{headerDate}}</text>
+        </view>
+      </view>
+      <view
+        class="fund-row"
+        wx:for="{{list}}"
+        wx:key="fundCode"
+        data-index="{{index}}"
+        bind:tap="goEditHolding"
+      >
+        <view class="col-name">
+          <text class="fund-name">{{item.fundName || item.fundCode}}</text>
+          <text class="fund-amount" wx:if="{{amountVisible}}">¥{{item.positionAmount}}</text>
+          <text class="fund-amount" wx:else>****</text>
+        </view>
+        <view class="col-num col-num-multi">
+          <text class="{{item.gszzl >= 0 ? 'up' : 'down'}}">{{item.gszzl != null ? (item.gszzl >= 0 ? '+' : '') + item.gszzl + '%' : '-'}}</text>
+          <text class="col-num-sub" wx:if="{{item.latestNav}}">{{item.latestNav}}</text>
+        </view>
+        <view class="col-num {{item.dailyProfit != null && item.dailyProfit >= 0 ? 'up' : 'down'}}">
+          <text wx:if="{{amountVisible}}">{{showDailyRate ? (item.dailyRate != null ? (item.dailyRate >= 0 ? '+' : '') + item.dailyRate + '%' : '-') : (item.dailyProfit != null ? (item.dailyProfit >= 0 ? '+' : '') + item.dailyProfit : '-')}}</text>
+          <text wx:else>****</text>
+        </view>
+        <view class="col-num col-num-multi">
+          <block wx:if="{{amountVisible}}">
+            <text class="{{item.holdingProfit != null && item.holdingProfit >= 0 ? 'up' : 'down'}}">{{item.holdingProfit != null ? item.holdingProfitDisplay : '-'}}</text>
+            <text class="col-num-sub {{item.holdingRateNum != null && item.holdingRateNum >= 0 ? 'up' : 'down'}}" wx:if="{{item.holdingRateNum != null}}">{{item.holdingRateDisplay}}</text>
+          </block>
+          <text wx:else>****</text>
+        </view>
+      </view>
+    </view>
+    <view class="action-bar" wx:if="{{list.length > 0 && !loading}}">
+      <view class="add-entry-link" bind:tap="goAddHolding">
+        <text class="add-entry-icon">+</text>
+        <text class="add-entry-text">新增持有</text>
+      </view>
+    </view>
+  </block>
+</view>

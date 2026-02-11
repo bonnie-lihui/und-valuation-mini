@@ -1,0 +1,35 @@
+<view class="page-wrap">
+  <van-toast id="van-toast" />
+
+  <view class="search-card">
+    <view class="search-field-wrap">
+      <view class="search-input-inner">
+        <van-field
+          value="{{ fundCode }}"
+          type="digit"
+          left-icon="search"
+          placeholder="请输入6位基金代码"
+          border="{{ false }}"
+          clearable
+          maxlength="6"
+          custom-class="search-field-input"
+          custom-style="padding: 5px 10px 5px 0; background-color: transparent;"
+          bind:change="onSearchChange"
+          bind:confirm="onSearchConfirm"
+        />
+      </view>
+      <view class="btn-search" bind:tap="onSearch">{{ searchLoading ? '搜索中...' : '搜索' }}</view>
+    </view>
+  </view>
+
+  <view class="form-wrap">
+    <view class="section-tip-wrap">
+      <text class="section-tip-text">持仓金额与持有收益不会随每日涨跌自动更新。建议每日开盘前自行更新，以便更准确查看估值。</text>
+    </view>
+    <van-field label-class="form-label" input-class="readonly-input" value="{{ fundName }}" label="基金名称" disabled placeholder="搜索后自动带出" />
+    <van-field label-class="form-label" value="{{ addAmount }}" type="digit" label="持仓金额" placeholder="请输入持仓金额（元）" bind:input="onAmountInput" />
+    <van-field label-class="form-label" value="{{ holdingProfit }}" type="text" label="持有收益" placeholder="请输入持有收益（元），可为负数" bind:input="onHoldingProfitInput" />
+    <van-button type="primary" block custom-class="submit-btn" disabled="{{ !fundName }}" bind:tap="onSubmit" loading="{{ submitLoading }}">保存</van-button>
+    <van-button wx:if="{{ isEditMode }}" plain type="danger" block custom-class="delete-btn" bind:tap="onDelete" loading="{{ deleteLoading }}">删除</van-button>
+  </view>
+</view>

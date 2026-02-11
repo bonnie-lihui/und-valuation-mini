@@ -3,15 +3,16 @@ const { getFundList, getFundCache, addFundCode, removeFundCode, MAX_FUND_COUNT, 
 const { getRealtimeValuation } = require('../../../utils/fundApi');
 const { buildShareConfig, buildTimelineConfig } = require('../../../utils/share');
 
-/** 将接口错误转为用户可读提示 */
+/** 将接口错误转为用户可读提示（兼容 err.message 与 err.errMsg） */
 function getSearchErrorTip(err) {
   try {
-    const msg = (err && err.message) ? String(err.message) : '';
+    const msg = (err && (err.message || err.errMsg)) ? String(err.message || err.errMsg) : '';
     if (msg === '未查到' || msg.indexOf('未查') !== -1) return '未找到该代码，请检查后重试';
-    if (msg === '网络异常') return '网络异常，请稍后重试';
+    if (msg === '网络异常' || msg.indexOf('网络') !== -1) return '网络异常，请稍后重试';
     if (msg === '数据格式异常') return '数据异常，请稍后重试';
     if (msg === '解析失败') return '数据解析失败，请稍后重试';
     if (msg === '请求失败') return '请求失败，请检查网络后重试';
+    if (msg.indexOf('timeout') !== -1 || msg.indexOf('超时') !== -1) return '请求超时，请检查网络后重试';
     return msg || '请求失败，请稍后重试';
   } catch (e) {
     console.error('getSearchErrorTip error', e);
@@ -102,7 +103,9 @@ Page({
 
   onSearchChange(e) {
     try {
-      this.setData({ searchValue: (e && e.detail != null) ? e.detail : '', searchResult: null, searchError: null });
+      const raw = e && e.detail;
+      const v = raw == null ? '' : (typeof raw === 'string' ? raw : (raw.value != null ? raw.value : ''));
+      this.setData({ searchValue: String(v || ''), searchResult: null, searchError: null });
     } catch (err) {
       console.error('add-fund onSearchChange error', err);
     }
@@ -118,7 +121,8 @@ Page({
 
   onSearch(e) {
     try {
-      const value = (e && e.detail != null) ? e.detail : '';
+      const raw = e && e.detail;
+      const value = raw == null ? '' : (typeof raw === 'string' ? raw : (raw.value != null ? raw.value : ''));
       this.doSearch(value);
     } catch (err) {
       console.error('add-fund onSearch error', err);
@@ -230,6 +234,7 @@ Page({
     wx.showModal({
       title: '确认',
       content: '确定取消关注吗？',
+      fail: () => wx.showToast({ title: '操作已取消', icon: 'none' }),
       success: res => {
         if (res.confirm) {
           try {

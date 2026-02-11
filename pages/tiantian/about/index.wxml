@@ -6,7 +6,9 @@
     </view>
     <view class="section">
       <text class="section-title">数据存储</text>
-      <text class="section-text">您的关注列表与估值缓存仅存储在本地设备，不会随账号同步或上传至服务器。</text>
+      <view class="section-tip-wrap">
+        <text class="section-tip-text">持仓金额与持有收益不会随每日涨跌自动更新。建议每日开盘前自行更新，以便更准确查看估值。</text>
+      </view>
     </view>
     <view class="section">
       <text class="section-title">数据来源</text>

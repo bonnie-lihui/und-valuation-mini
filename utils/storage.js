@@ -30,7 +30,7 @@ function addFundCode(code) {
   try {
     const list = getFundList();
     const trim = String(code).trim().replace(/\D/g, '');
-    if (!trim || list.includes(trim)) return false;
+    if (!trim || trim.length !== 6 || list.includes(trim)) return false;
     if (list.length >= MAX_FUND_COUNT) return false;
     list.push(trim);
     setFundList(list);

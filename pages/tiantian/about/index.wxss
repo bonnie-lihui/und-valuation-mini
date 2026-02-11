@@ -38,3 +38,17 @@
 .section-text:last-child {
   margin-bottom: 0;
 }
+
+/* 数据存储提示：浅黄底 + 深色字，与持有页免责声明风格一致 */
+.section-tip-wrap {
+  background-color: #fff8e6;
+  border-radius: 12rpx;
+  padding: 20rpx 24rpx;
+  border-left: 6rpx solid #e6c84c;
+}
+
+.section-tip-text {
+  font-size: 28rpx;
+  color: #8b6914;
+  line-height: 1.6;
+}

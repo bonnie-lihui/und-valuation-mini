@@ -151,30 +151,41 @@ Page({
 
       return Promise.all(promises).then(list => {
         if (this._unloaded) return;
+        const hasError = (list || []).some((item) => item && item.error);
+        if (hasError) {
+          wx.showToast({ title: '部分基金估值获取失败', icon: 'none' });
+        }
         try {
           this.setData({ list, loading: false });
         } catch (e) {
           console.error('index loadList setData error', e);
-          if (!this._unloaded) this.setData({ loading: false });
+          if (!this._unloaded) {
+            this.setData({ loading: false });
+            wx.showToast({ title: '加载失败', icon: 'none' });
+          }
         }
       }).catch(e => {
         console.error('index loadList error', e);
-        if (!this._unloaded) this.setData({ loading: false });
+        if (!this._unloaded) {
+          this.setData({ list: [], loading: false });
+          wx.showToast({ title: (e && e.message) || '加载失败', icon: 'none' });
+        }
       });
     } catch (e) {
       console.error('index loadList error', e);
-      if (!this._unloaded) this.setData({ list: [], loading: false });
+      if (!this._unloaded) {
+        this.setData({ list: [], loading: false });
+        wx.showToast({ title: '加载失败', icon: 'none' });
+      }
       return Promise.resolve();
     }
   },
 
   goAdd() {
-    try {
-      wx.navigateTo({ url: '/pages/tiantian/add-fund/index' });
-    } catch (e) {
-      console.error('index goAdd error', e);
-      wx.showToast({ title: '跳转失败', icon: 'none' });
-    }
+    wx.navigateTo({
+      url: '/pages/tiantian/add-fund/index',
+      fail: () => wx.showToast({ title: '跳转失败', icon: 'none' }),
+    });
   },
 
   onDelete(e) {
@@ -183,6 +194,7 @@ Page({
     wx.showModal({
       title: '确认',
       content: '确定取消关注吗？',
+      fail: () => wx.showToast({ title: '操作已取消', icon: 'none' }),
       success: res => {
         if (res.confirm) {
           try {

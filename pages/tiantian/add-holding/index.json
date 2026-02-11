@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "van-toast": "@vant/weapp/toast/index",
+    "van-search": "@vant/weapp/search/index",
+    "van-loading": "@vant/weapp/loading/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-button": "@vant/weapp/button/index"
+  },
+  "navigationBarTitleText": "添加持有"
+}

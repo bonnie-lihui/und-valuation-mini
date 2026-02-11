@@ -1,13 +1,13 @@
-// pages/tiantian/mine/index.js - 我的页：头部头像 + 其他（关于我们、联系客服、一键清关注数据、版本更新）
+// pages/tiantian/mine/index.js - 我的页：占位昵称/id（静默登录下发）+ 其他
 const { buildShareConfig, buildTimelineConfig } = require('../../../utils/share');
-const { clearAllFundData } = require('../../../utils/storage');
+const { getUser } = require('../../../utils/auth');
 
 Page({
   data: {
     user: {
       avatar: '',
       nickname: '微信用户',
-      desc: 'ID: 10086'
+      desc: 'ID: -'
     },
     menuGroups: [
       {
@@ -15,24 +15,46 @@ Page({
         items: [
           { label: '关于我们', icon: 'info-o', path: '/pages/tiantian/about/index' },
           { label: '联系客服', icon: 'chat-o', openType: 'contact' },
-          { label: '清除数据', icon: 'delete-o', action: 'clearData' },
           { label: '版本更新', icon: 'replay', action: 'checkUpdate' }
         ]
       }
     ]
   },
 
-  onLoad() {},
+  onLoad() {
+    const u = getUser();
+    if (u && (u.nickname || u.id)) {
+      this.setData({
+        user: {
+          avatar: '',
+          nickname: u.nickname || '微信用户',
+          desc: u.id ? 'ID: ' + u.id : ''
+        }
+      });
+    }
+  },
+
+  onShow() {
+    const u = getUser();
+    if (u && (u.nickname || u.id)) {
+      this.setData({
+        user: {
+          avatar: '',
+          nickname: u.nickname || '微信用户',
+          desc: u.id ? 'ID: ' + u.id : ''
+        }
+      });
+    }
+  },
 
   onMenuItemTap(e) {
     const item = e.currentTarget.dataset.item;
     if (!item || !item.label) return;
     if (item.path) {
-      wx.navigateTo({ url: item.path });
-      return;
-    }
-    if (item.action === 'clearData') {
-      this.handleClearData();
+      wx.navigateTo({
+        url: item.path,
+        fail: () => wx.showToast({ title: '跳转失败', icon: 'none' }),
+      });
       return;
     }
     if (item.action === 'checkUpdate') {
@@ -40,24 +62,6 @@ Page({
       return;
     }
     wx.showToast({ title: item.label + '（待开发）', icon: 'none' });
-  },
-
-  /** 一键清关注数据：弹窗确认后清空本地关注列表与估值缓存 */
-  handleClearData() {
-    wx.showModal({
-      title: '确认清空',
-      content: '将清空所有关注基金及估值缓存，是否继续？',
-      success: (res) => {
-        if (!res.confirm) return;
-        try {
-          clearAllFundData();
-          wx.showToast({ title: '已清空', icon: 'success' });
-        } catch (e) {
-          console.error('mine handleClearData error', e);
-          wx.showToast({ title: '清空失败', icon: 'none' });
-        }
-      }
-    });
   },
 
   /** 版本更新检测：有更新时提示并应用（部分环境无 checkUpdate，仅注册监听并提示） */
@@ -90,6 +94,8 @@ Page({
           closeLoading();
           if (res && res.hasUpdate === false) {
             wx.showToast({ title: '当前已是最新版本', icon: 'none' });
+          } else if (res && res.hasUpdate === true) {
+            wx.showToast({ title: '发现新版本，正在下载', icon: 'none' });
           }
         });
         updateManager.onUpdateReady(() => {
@@ -99,6 +105,7 @@ Page({
             title: '发现新版本',
             content: '新版本已就绪，是否立即重启应用？',
             showCancel: true,
+            fail: () => wx.showToast({ title: '操作已取消', icon: 'none' }),
             success: (res) => {
               if (res.confirm) updateManager.applyUpdate();
             }

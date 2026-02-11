@@ -1,8 +1,10 @@
 {
   "pages": [
+    "pages/tiantian/holdings/index",
     "pages/tiantian/index/index",
     "pages/tiantian/mine/index",
     "pages/tiantian/add-fund/index",
+    "pages/tiantian/add-holding/index",
     "pages/tiantian/about/index"
   ],
   "window": {
@@ -17,18 +19,8 @@
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [
-      {
-        "pagePath": "pages/tiantian/index/index",
-        "text": "关注",
-        "iconPath": "images/tabbar/home_default.png",
-        "selectedIconPath": "images/tabbar/home_actived.png"
-      },
-      {
-        "pagePath": "pages/tiantian/mine/index",
-        "text": "我的",
-        "iconPath": "images/tabbar/mine_default.png",
-        "selectedIconPath": "images/tabbar/mine_actived.png"
-      }
+      { "pagePath": "pages/tiantian/holdings/index", "text": "持有", "iconPath": "images/tabbar/home_default.png", "selectedIconPath": "images/tabbar/home_actived.png" },
+      { "pagePath": "pages/tiantian/mine/index", "text": "我的", "iconPath": "images/tabbar/mine_default.png", "selectedIconPath": "images/tabbar/mine_actived.png" }
     ]
   },
   "sitemapLocation": "sitemap.json"

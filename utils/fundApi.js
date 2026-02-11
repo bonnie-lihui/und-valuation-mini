@@ -83,7 +83,8 @@ function getRealtimeValuation(fundCode) {
       },
       fail(err) {
         try {
-          reject(err || new Error('请求失败'));
+          const msg = (err && (err.message || err.errMsg)) ? String(err.message || err.errMsg) : '请求失败';
+          reject(new Error(msg));
         } catch (e) {
           console.error('getRealtimeValuation fail error', e);
           reject(new Error('请求失败'));
