@@ -74,6 +74,7 @@ Page({
 
   onShow() {
     if (this._unloaded) return;
+    this.setData({ loading: true });
     this.loadList();
   },
 
@@ -173,7 +174,7 @@ Page({
 
   goAddHolding() {
     wx.navigateTo({
-      url: '/pages/tiantian/add-holding/index',
+      url: '/pages/tiantian/add-holding-choose/index',
       fail: () => wx.showToast({ title: '跳转失败', icon: 'none' }),
     });
   },

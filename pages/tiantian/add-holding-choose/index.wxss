@@ -1,0 +1,43 @@
+.page-wrap {
+  min-height: 100vh;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48rpx;
+  box-sizing: border-box;
+}
+
+.btn-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
+}
+
+.btn-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 96rpx;
+  border-radius: 16rpx;
+  padding: 0 32rpx;
+}
+
+.btn-primary {
+  background: #1989fa;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.btn-icon {
+  margin-right: 16rpx;
+}
+
+.btn-text {
+  font-size: 30rpx;
+}

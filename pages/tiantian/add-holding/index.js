@@ -171,9 +171,7 @@ Page({
       .then(() => {
         this.setData({ submitLoading: false });
         wx.showToast({ title: '保存成功', icon: 'success' });
-        setTimeout(() => {
-          wx.navigateBack({ fail: () => wx.showToast({ title: '已保存', icon: 'none' }) });
-        }, 1500);
+        wx.switchTab({ url: '/pages/tiantian/holdings/index', fail: () => wx.navigateBack({ fail: () => wx.showToast({ title: '已保存', icon: 'none' }) }) });
       })
       .catch((err) => {
         this.setData({ submitLoading: false });
@@ -200,7 +198,7 @@ Page({
           .then(() => {
             this.setData({ deleteLoading: false });
             wx.showToast({ title: '已删除', icon: 'success' });
-            setTimeout(() => wx.navigateBack({ fail: () => wx.showToast({ title: '已删除', icon: 'none' }) }), 800);
+            wx.switchTab({ url: '/pages/tiantian/holdings/index', fail: () => wx.navigateBack({ fail: () => wx.showToast({ title: '已删除', icon: 'none' }) }) });
           })
           .catch((err) => {
             this.setData({ deleteLoading: false });

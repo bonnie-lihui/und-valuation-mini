@@ -1,0 +1,77 @@
+<view class="page-wrap">
+  <!-- 识别结果确认列表 + 汇总 -->
+  <view class="confirm-wrap" wx:if="{{step === 'confirm' && parsedList.length > 0}}">
+    <view class="tip-block">
+      <text class="tip-text">请核对识别结果，可删除错误项后点击「确认添加」</text>
+    </view>
+    <view class="list-wrap">
+      <view class="card {{item.isAbnormal ? 'card-abnormal' : ''}}" wx:for="{{parsedList}}" wx:key="index">
+        <view class="card-body">
+          <view class="item-row item-name">{{item.fundCode ? item.fundName : (item.cleanName || item.rawName || '未匹配')}}</view>
+          <view class="item-row item-code" wx:if="{{item.fundCode}}">代码 {{item.fundCode}}{{item.matchDegree ? ' · 匹配度 ' + item.matchDegree : ''}}</view>
+          <view class="item-row item-unmatched" wx:else>
+            <text>未匹配到基金（识别名无A/C/E后缀时请手动输入代码）</text>
+            <view class="btn-input-code" data-index="{{index}}" bind:tap="onOpenCodeInput">输入代码</view>
+          </view>
+          <view class="item-row item-nums">持有金额 {{item.holdAmount}} 元，持有收益 {{item.holdProfit}} 元</view>
+          <view class="item-row item-abnormal-tip" wx:if="{{item.isAbnormal}}">数据异常，请核对原图</view>
+        </view>
+        <view class="card-remove" data-index="{{index}}" bind:tap="onRemoveParsed">删除</view>
+      </view>
+    </view>
+    <!-- 未匹配时手动输入基金代码 -->
+    <view class="code-input-mask" wx:if="{{inputCodeIndex !== null}}" catchtap="onCancelCodeInput">
+      <view class="code-input-box" catchtap="">
+        <view class="code-input-title">输入6位基金代码</view>
+        <input class="code-input" type="number" maxlength="6" placeholder="如 159834" value="{{inputCodeValue}}" bindinput="onCodeInput" focus="{{inputCodeIndex !== null}}" />
+        <view class="code-input-actions">
+          <view class="code-input-btn cancel" bind:tap="onCancelCodeInput">取消</view>
+          <view class="code-input-btn confirm" bind:tap="onConfirmCodeInput">确定</view>
+        </view>
+      </view>
+    </view>
+    <view class="btn-row">
+      <view class="btn-add" bind:tap="onConfirmSubmit">确认添加</view>
+      <view class="btn-secondary" bind:tap="onBackToChoose">重新选图</view>
+    </view>
+  </view>
+
+  <!-- 选图 + 识别 -->
+  <block wx:elif="{{step !== 'confirm'}}">
+    <view class="tip-block">
+      <text class="tip-text">仅支持从相册选择截图，识别完成后即可添加</text>
+      <text class="tip-text tip-error" wx:if="{{fundListError}}" bind:tap="onRetryFundList">基金列表未加载，点击重试</text>
+    </view>
+
+    <view class="preview-wrap" wx:if="{{imageList.length > 0}}">
+      <view class="preview-list">
+        <view class="preview-item" wx:for="{{imageList}}" wx:key="*this">
+          <image class="preview-img" src="{{item}}" mode="aspectFill" />
+          <view class="preview-remove" data-index="{{index}}" bind:tap="onRemoveImage">×</view>
+        </view>
+        <view class="preview-item preview-add" bind:tap="onChooseImage" wx:if="{{imageList.length < 1}}">
+          <van-icon name="plus" size="40px" color="#999" />
+          <text class="preview-add-text">选择截图</text>
+        </view>
+      </view>
+      <view class="rerecognize-tip" wx:if="{{ocrNoMatch}}">识别失败时可尝试重新识别</view>
+      <view class="btn-secondary btn-rerecognize" bind:tap="onReRecognize">重新识别</view>
+      <view class="ocr-raw-wrap" wx:if="{{ocrNoMatch && ocrRawText}}">
+        <text class="ocr-raw-label">识别到的文字（未匹配到基金时可参考）：</text>
+        <text class="ocr-raw-text" selectable>{{ocrRawText}}</text>
+      </view>
+    </view>
+
+    <view class="btn-choose" bind:tap="onChooseImage" wx:else>
+      <van-icon name="photo-o" class="btn-choose-icon" size="48px" color="#e74c3c" />
+      <text class="btn-choose-text">从相册选择截图</text>
+    </view>
+  </block>
+
+  <!-- 用于 VisionKit 取像素（兼容基础库 2.27.0），离屏隐藏 -->
+  <canvas
+    canvas-id="ocrCanvasLegacy"
+    class="ocr-canvas-hidden"
+    style="width: {{canvasW}}px; height: {{canvasH}}px;"
+  ></canvas>
+</view>

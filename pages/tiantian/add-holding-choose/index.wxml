@@ -1,0 +1,11 @@
+<view class="page-wrap">
+  <view class="btn-group">
+    <view class="btn-item btn-primary" bind:tap="goScreenshot">
+      <van-icon name="photo-o" class="btn-icon" color="#fff" size="22px" />
+      <text class="btn-text">截图导入</text>
+    </view>
+    <view class="btn-item btn-secondary" bind:tap="goManual">
+      <text class="btn-text">手动输入</text>
+    </view>
+  </view>
+</view>

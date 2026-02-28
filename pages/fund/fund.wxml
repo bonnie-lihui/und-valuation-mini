@@ -1,0 +1,19 @@
+<view class="fund-ocr-container">
+  <view class="tip">使用 VisionKit 本地识别，无任何调用次数限制</view>
+  <button class="btn-primary" bindtap="chooseFundImage" type="primary" disabled="{{!visionKitSupported}}">
+    选择基金截图识别
+  </button>
+  <view class="summary-wrap" wx:if="{{summary.totalHoldAmount !== undefined && fundList.length > 0}}">
+    <view class="summary-title">汇总</view>
+    <view class="summary-row">总持有金额：¥{{summary.totalHoldAmount}}</view>
+    <view class="summary-row">总持有收益：¥{{summary.totalHoldProfit}}</view>
+  </view>
+  <view class="list-wrap" wx:if="{{fundList.length > 0}}">
+    <view class="list-title">识别结果（{{fundList.length}} 条）</view>
+    <view class="list-item" wx:for="{{fundList}}" wx:key="index">
+      <view class="item-name">{{item.name}}</view>
+      <view class="item-nums">持有金额 {{item.holdAmount}} 元，持有收益 {{item.holdProfit}} 元</view>
+    </view>
+  </view>
+  <canvas canvas-id="ocrCanvas" class="ocr-canvas-hidden" style="width: {{canvasW}}px; height: {{canvasH}}px;"></canvas>
+</view>

@@ -15,7 +15,8 @@ Page({
         items: [
           { label: '关于我们', icon: 'info-o', path: '/pages/tiantian/about/index' },
           { label: '联系客服', icon: 'chat-o', openType: 'contact' },
-          { label: '版本更新', icon: 'replay', action: 'checkUpdate' }
+          { label: '版本更新', icon: 'replay', action: 'checkUpdate' },
+          { label: '清除缓存', icon: 'delete-o', action: 'clearCache' }
         ]
       }
     ]
@@ -61,7 +62,40 @@ Page({
       this.handleCheckUpdate();
       return;
     }
+    if (item.action === 'clearCache') {
+      this.handleClearCache();
+      return;
+    }
     wx.showToast({ title: item.label + '（待开发）', icon: 'none' });
+  },
+
+  /** 清除缓存：一键清理本地全部 Storage 后退出小程序 */
+  handleClearCache() {
+    wx.showModal({
+      title: '清除缓存',
+      content: '确定清除本地缓存并退出小程序？',
+      confirmText: '确定清除',
+      confirmColor: '#e74c3c',
+      success: (res) => {
+        if (!res.confirm) return;
+        try {
+          wx.clearStorageSync();
+          if (typeof wx.exitMiniProgram === 'function') {
+            wx.exitMiniProgram({
+              success: () => {},
+              fail: () => {
+                wx.showToast({ title: '缓存已清除', icon: 'success' });
+              }
+            });
+          } else {
+            wx.showToast({ title: '缓存已清除，请手动关闭小程序', icon: 'success' });
+          }
+        } catch (e) {
+          console.error('mine handleClearCache error', e);
+          wx.showToast({ title: '清除失败', icon: 'none' });
+        }
+      }
+    });
   },
 
   /** 版本更新检测：有更新时提示并应用（部分环境无 checkUpdate，仅注册监听并提示） */
