@@ -5,7 +5,7 @@
       <text class="section-text">本小程序提供估值查询与展示，便于您查看已关注产品的估算涨跌。</text>
     </view>
     <view class="section">
-      <text class="section-title">数据存储</text>
+      <text class="section-title">数据更新</text>
       <view class="section-tip-wrap">
         <text class="section-tip-text">持仓金额与持有收益不会随每日涨跌自动更新。建议每日开盘前自行更新，以便更准确查看估值。</text>
       </view>

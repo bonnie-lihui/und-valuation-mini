@@ -2,7 +2,7 @@
   <!-- 识别结果确认列表 + 汇总 -->
   <view class="confirm-wrap" wx:if="{{step === 'confirm' && parsedList.length > 0}}">
     <view class="tip-block">
-      <text class="tip-text">请核对识别结果，可删除错误项后点击「确认添加」</text>
+      <text class="tip-text">请核对识别结果，可选择删除错误项后点击「确认添加」</text>
     </view>
     <view class="list-wrap">
       <view class="card {{item.isAbnormal ? 'card-abnormal' : ''}}" wx:for="{{parsedList}}" wx:key="index">
